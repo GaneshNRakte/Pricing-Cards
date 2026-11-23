@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing Plans - SaaS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:#f1f5f9;min-height:100vh;padding:40px 20px;color:#0f172a}
+.header{text-align:center;max-width:700px;margin:0 auto 35px}
+.header h1{font-size:36px;font-weight:800;letter-spacing:-1px}
+.header h1 span{color:#2563eb}
+.header p{color:#64748b;margin-top:10px;font-size:16px;line-height:1.5}
+
+/* Toggle */
+.toggle-wrap{display:flex;align-items:center;justify-content:center;gap:14px;margin:28px 0 10px;font-weight:600}
+.switch{position:relative;width:62px;height:32px;background:#2563eb;border-radius:30px;cursor:pointer;transition:.3s}
+.switch::after{content:"";position:absolute;top:4px;left:4px;width:24px;height:24px;background:white;border-radius:50%;transition:.3s}
+.switch.yearly::after{left:34px}
+.save-badge{background:#dcfce7;color:#166534;font-size:12px;padding:4px 8px;border-radius:20px;font-weight:700}
+
+/* Cards */
+.cards{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;max-width:1050px;margin:30px auto}
+.card{background:white;width:320px;border-radius:20px;padding:32px 28px;position:relative;box-shadow:0 10px 30px rgba(0,0,0,.07);border:2px solid transparent;transition:transform .3s ease, box-shadow .3s ease, border-color .3s}
+.card:hover{transform:translateY(-10px) scale(1.02);box-shadow:0 20px 45px rgba(37,99,235,.18)}
+.card.popular{border-color:#2563eb;transform:scale(1.04);box-shadow:0 20px 40px rgba(37,99,235,.2)}
+.card.popular:hover{transform:translateY(-10px) scale(1.06)}
+.ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#2563eb;color:white;font-size:12px;font-weight:800;letter-spacing:1px;padding:6px 14px;border-radius:20px;white-space:nowrap}
+.ribbon.green{background:#16a34a}
+.plan{font-size:14px;font-weight:800;letter-spacing:1.5px;color:#64748b;text-transform:uppercase}
+.price{margin:16px 0 6px;display:flex;align-items:baseline;gap:4px}
+.price b{font-size:48px;letter-spacing:-2px}
+.price span{color:#64748b}
+.old-price{color:#94a3b8;text-decoration:line-through;font-size:15px;height:20px}
+.desc{color:#64748b;font-size:14px;line-height:1.5;margin:8px 0 20px}
+.card ul{list-style:none;margin-bottom:24px}
+.card ul li{padding:9px 0;border-bottom:1px solid #f1f5f9;font-size:14px;display:flex;gap:8px}
+.card ul li:last-child{border:none}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;font-weight:700;font-size:15px;cursor:pointer;transition:.2s}
+.btn-outline{background:#eff6ff;color:#2563eb;border:2px solid #dbeafe}
+.btn-blue{background:#2563eb;color:white}
+.btn-dark{background:#0f172a;color:white}
+.btn:hover{transform:scale(1.03);opacity:.95}
+.note{text-align:center;color:#94a3b8;font-size:13px;margin-top:10px}
+@media(max-width:768px){.card.popular{transform:scale(1)} .card.popular:hover{transform:translateY(-8px)} .header h1{font-size:28px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Simple pricing for <span>every team</span></h1>
+  <p>Start free. Upgrade when you grow. No hidden charges, cancel anytime.</p>
+  <div class="toggle-wrap">
+    <span id="labelMonthly">Monthly</span>
+    <div class="switch" id="billingSwitch" onclick="toggleBilling()"></div>
+    <span id="labelYearly">Yearly</span>
+    <span class="save-badge">Save 20%</span>
+  </div>
+</div>
+
+<div class="cards">
+  <!-- STARTER -->
+  <div class="card">
+    <div class="plan">Starter</div>
+    <div class="price"><b id="price1">₹499</b><span>/ month</span></div>
+    <div class="old-price" id="old1"></div>
+    <p class="desc">Perfect for individuals getting started.</p>
+    <ul>
+      <li>✅ 5 Projects</li>
+      <li>✅ 1 GB Storage</li>
+      <li>✅ Basic Support</li>
+      <li>✅ 1 User</li>
+    </ul>
+    <button class="btn btn-outline" onclick="selectPlan('Starter')">Start Free</button>
+  </div>
+
+  <!-- PRO -->
+  <div class="card popular">
+    <div class="ribbon">⭐ MOST POPULAR</div>
+    <div class="plan" style="color:#2563eb">Pro</div>
+    <div class="price"><b id="price2">₹999</b><span>/ month</span></div>
+    <div class="old-price" id="old2"></div>
+    <p class="desc">Best for growing teams & freelancers.</p>
+    <ul>
+      <li>✅ Unlimited Projects</li>
+      <li>✅ 50 GB Storage</li>
+      <li>✅ Priority Support</li>
+      <li>✅ 10 Users</li>
+      <li>✅ Advanced Analytics</li>
+    </ul>
+    <button class="btn btn-blue" onclick="selectPlan('Pro')">Go Pro →</button>
+  </div>
+
+  <!-- TEAM -->
+  <div class="card">
+    <div class="ribbon green">🏆 BEST VALUE</div>
+    <div class="plan">Team</div>
+    <div class="price"><b id="price3">₹1499</b><span>/ month</span></div>
+    <div class="old-price" id="old3"></div>
+    <p class="desc">For big companies & agencies.</p>
+    <ul>
+      <li>✅ Everything in Pro</li>
+      <li>✅ 500 GB Storage</li>
+      <li>✅ 24/7 Support</li>
+      <li>✅ Unlimited Users</li>
+    </ul>
+    <button class="btn btn-dark" onclick="selectPlan('Team')">Contact Sales</button>
+  </div>
+</div>
+<p class="note" id="billingNote">Showing Monthly billing • Prices in INR</p>
+
+<script>
+let isYearly = false;
+function toggleBilling(){
+  isYearly = !isYearly;
+  document.getElementById('billingSwitch').classList.toggle('yearly', isYearly);
+  const data = [
+    {m:499, y:399},
+    {m:999, y:799},
+    {m:1499, y:1199}
+  ];
+  data.forEach((p,i)=>{
+    const idx = i+1;
+    if(isYearly){
+      document.getElementById('price'+idx).innerText = '₹'+p.y;
+      document.getElementById('old'+idx).innerText = '₹'+p.m+' / month - 20% OFF';
+    } else {
+      document.getElementById('price'+idx).innerText = '₹'+p.m;
+      document.getElementById('old'+idx).innerText = '';
+    }
+  });
+  document.getElementById('billingNote').innerText = isYearly ? 'Showing Yearly billing • You save 20% • Billed yearly' : 'Showing Monthly billing • Prices in INR';
+  document.getElementById('labelMonthly').style.opacity = isYearly ? '0.4' : '1';
+  document.getElementById('labelYearly').style.opacity = isYearly ? '1' : '0.4';
+}
+function selectPlan(plan){
+  alert(plan + ' plan selected! 🎉\nThank you for choosing us.');
+}
+</script>
+</body>
+</html>
